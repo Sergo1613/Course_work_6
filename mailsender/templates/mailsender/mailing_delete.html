@@ -1,0 +1,18 @@
+{% extends 'mailsender/base.html' %}
+{% block title %}Удаление рассылки{% endblock title%}
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="col-6">
+            <div class="card" style="color:black">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>Удалить рассылку {{ object.messages.topic }}?</p>
+                        <button type="submit" class="btn btn-danger">Подтвердить</button>
+                        <a href="{% url 'mailsender:home'%}" class="btn btn-warning">Отмена</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

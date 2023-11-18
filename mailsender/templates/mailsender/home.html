@@ -1,0 +1,13 @@
+{% extends 'mailsender/base.html' %}
+{% block title %}FastMailSender - Главная{% endblock title %}
+{% block content %}
+<h1>FastMailSender</h1>
+        <p class="lead"><strong>FastMailSender</strong> - это компания, занимающаяся профессиональной организацией и
+            проведением email-рассылок. Мы предлагаем широкий спектр услуг по созданию, настройке и анализу
+            email-кампаний, которые помогут увеличить вашу конверсию, узнаваемость бренда и уровень продаж. Наша команда
+            опытных специалистов всегда готова помочь вам разработать индивидуальную стратегию email-маркетинга, которая
+            будет соответствовать вашим целям и бюджету.</p>
+        <p class="lead">
+            <a href="{% url 'mailsender:mailing_management_create' %}" class="btn btn-outline-success">Создать рассылку</a>
+        </p>
+{% endblock %}

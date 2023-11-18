@@ -1,0 +1,22 @@
+{% extends 'mailsender/base.html' %}
+{% block content %}
+<title>{% block title %}Регистрация{% endblock title %}</title>
+    <form method="post" enctype="multipart/form-data" style="color: black">
+        <div class="row m-2">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h2>Регистрация</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

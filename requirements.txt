@@ -43,3 +43,5 @@ typing_extensions==4.8.0
 tzdata==2023.3
 urllib3==2.0.3
 wcwidth==0.2.6
+
+django-scheduler~=0.10.1

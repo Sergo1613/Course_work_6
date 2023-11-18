@@ -1,0 +1,58 @@
+{% extends 'mailsender/base.html' %}
+{% block title %}Все рассылки{% endblock title %}
+{% block content %}
+<body class="d-flex flex-column h-100">
+<div class="d-flex flex-row flex-grow-1">
+    <div class="col-3"></div>
+    <div class="d-flex flex-column flex-grow-1 my-6">
+        <h2 class="text-center mb-4">Все рассылки</h2>
+        <div class="mb-4">
+            <a href="{% url 'mailsender:mailing_management_create' %}" class="btn btn-outline-success">Создать новую
+                рассылку</a>
+        </div>
+        {% for object in object_list %}
+        {% if object.creator == user %}
+        <div class="card m-1" style="color:black">
+            <h5 class="card-header">{{object.messages.topic}}</h5>
+            <div class="card-body">
+                <p class="card-text">{{object.messages.message}}</p>
+
+                {% if object.every_day %}
+                    <p class="card-title">Ежедневно</p>
+                {% elif object.every_week %}
+                    <p class="card-title">Каждую неделю {{object.mailing_datetime.weekday}}</p>
+                {% elif object.every_month %}
+                    <p class="card-title">Каждый месяц {{object.mailing_datetime.day}} числа</p>
+                {% endif %}
+                {% if object.status %}
+                    <p class="card-title">Статус рассылки: <b>активна</b></p>
+                {% else %}
+                    <p class="card-title">Статус рассылки: <b>неактивна</b></p>
+                {% endif %}
+
+                {% if object.logs.datetime_of_last_mailing and object.logs.status == True%}
+                    <p class="card-title">Последняя рассылка успешно прошла <b>{{object.logs.datetime_of_last_mailing.date }}
+                    в {{object.logs.datetime_of_last_mailing.time}}</b></p>
+
+                {% elif object.logs.datetime_of_last_mailing and object.logs.status == False %}
+                    <p class="card-title">Последняя рассылка пошла не по плану <b>{{
+                    object.logs.datetime_of_last_mailing.date }}
+                    в {{object.logs.datetime_of_last_mailing.time}}.</b>
+                    Не переживайте, мы все починим.</p>
+
+                {% elif not object.logs.datetime_of_last_mailing %}
+                <p> Время рассылки еще не настало</b></p>
+                {% endif %}
+                <a href="{% url 'mailsender:mailing_management_detail' object.pk %}"
+                   class="btn btn-primary text-decoration-none">Подробнее</a>
+                <a href="{% url 'mailsender:mailing_update' object.pk %}" class="btn btn-warning">Редактировать</a>
+                <a href="{% url 'mailsender:mailing_delete' object.pk %}" class="btn btn-danger text-decoration-none">Удалить</a>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+</body>
+
+{% endblock %}

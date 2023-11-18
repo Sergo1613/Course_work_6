@@ -1,0 +1,32 @@
+{% extends 'mailsender/base.html' %}
+{% block title %}Информация о рассылках{% endblock title %}
+{% block content %}
+<body class="d-flex flex-column h-100">
+<div class="d-flex flex-row flex-grow-1">
+    <div class="d-flex flex-column flex-grow-1 my-4">
+        <h2 class="text-center">Подробная информация о рассылке</h2>
+
+        <div class="card" style="color:black">
+            <h5 class="card-header">{{ object.messages.topic }}</h5>
+            <div class="card-body">
+                <p class="card-text">{{ object.messages.message }}</p>
+                {% if object.every_day %}
+                <p class="card-title">Ежедневно</p>
+                {% elif object.every_week %}
+                <p class="card-title">Каждую неделю {{object.mailing_datetime.weekday}}</p>
+                {% elif object.every_month %}
+                <p class="card-title">Каждый месяц {{object.mailing_datetime.day}} числа</p>
+                {% endif %}
+                {% if object.status %}
+                <p class="card-title">Статус рассылки: <b>активна</b></p>
+                {% else %}
+                <p class="card-title">Статус рассылки: <b>неактивна</b></p>
+                {% endif %}
+                <a href="{% url 'mailsender:mailing_management' %}"
+                   class="btn btn-primary text-decoration-none">Назад</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'mailsender/base.html' %}
+{% block title %}Редактировать профиль{% endblock title %}
+{% block content %}
+<style>
+    .form {
+    background-color: black
+    }
+</style>
+<form method="post" enctype="multipart/form-data" style="color: black">
+    <div class="row">
+        <div class="col-12">
+        <div class="col-3"></div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Редактировать профиль</h2>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
